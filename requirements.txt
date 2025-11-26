@@ -1,0 +1,16 @@
+flask
+ultralytics
+opencv-python
+numpy
+Pillow
+streamlit
+gtts
+playsound
+pyttsx3
+pydub
+torch
+torchaudio
+torchvision
+requests
+matplotlib
+pandas
