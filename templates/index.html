@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>FarmAI — Disease Detection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html,body { height:100%; margin:0; font-family:Inter,Arial,Helvetica,sans-serif; background:#000; color:#fff; }
+    #bgvideo { position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -1; filter: blur(2px) brightness(0.6); object-fit:cover; }
+    .overlay { position: relative; z-index: 2; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:30px; }
+    .card { background: rgba(0,0,0,0.45); border-radius:16px; padding:20px; width:920px; max-width:95%; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.06); }
+    .row { display:flex; gap:20px; }
+    .left { flex: 1; display:flex; flex-direction:column; gap:12px; }
+    .right { width: 420px; }
+    .neon-btn {
+      background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.12);
+      padding:12px 18px; border-radius:12px; cursor:pointer;
+      color:#fff; font-weight:600; text-transform: none;
+      transition: all .18s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6), 0 0 10px rgba(0,255,255,0.02);
+    }
+    .neon-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 30px rgba(0,0,0,0.6), 0 0 30px rgba(0,255,255,0.25);
+    }
+    .file-box { border: 2px dashed rgba(255,255,255,0.06); padding:18px; border-radius:12px; text-align:center; }
+    input[type=file] { display:block; margin: 12px auto; }
+    .detections { margin-top:12px; display:flex; flex-direction:column; gap:8px; max-height:420px; overflow:auto; }
+    .det { padding:10px; border-radius:10px; background: linear-gradient(90deg, rgba(0,0,0,0.35), rgba(0,0,0,0.2)); border:1px solid rgba(255,255,255,0.04); }
+    img#outimg { width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.06); }
+    .lang-row { display:flex; gap:8px; align-items:center; margin-top:6px;}
+    .small { font-size:13px; color:#ccc; }
+    @media (max-width:900px) {
+      .row { flex-direction:column; }
+      .right { width:100%; }
+    }
+  </style>
+</head>
+<body>
+  <video id="bgvideo" autoplay loop muted playsinline>
+    <source src="{{ url_for('static', filename='background.mp4') }}" type="video/mp4">
+    <!-- If your browser doesn't play video, it falls back gracefully -->
+  </video>
+
+  <div class="overlay">
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2>FarmAI — Disease Detector</h2>
+        <div class="small">Model: best.pt</div>
+      </div>
+
+      <div class="row" style="margin-top:12px;">
+        <div class="left">
+          <form method="post" action="/detect" enctype="multipart/form-data" id="detectForm">
+            <div class="file-box">
+              <div class="small">Upload leaf image (jpg/png)</div>
+              <input type="file" name="image" accept="image/*" required />
+              <div class="lang-row">
+                <label class="small">Language:</label>
+                <select name="lang" id="lang">
+                  <option value="en" {% if lang=='en' %}selected{% endif %}>English</option>
+                  <option value="kn" {% if lang=='kn' %}selected{% endif %}>Kannada</option>
+                  <option value="hi" {% if lang=='hi' %}selected{% endif %}>Hindi</option>
+                </select>
+                <label style="margin-left:12px;">
+                  <input type="checkbox" name="voice" value="true"> Voice
+                </label>
+              </div>
+              <div style="margin-top:10px;">
+                <button type="submit" class="neon-btn">Detect</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="detections" id="detections">
+            {% if detections %}
+              {% for d in detections %}
+                <div class="det">
+                  <strong>{{d.class}}</strong> — confidence: {{ "%.2f"|format(d.confidence) }}<br/>
+                  <div class="small">{{ d.medicine }}</div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="small">No detection yet — upload an image and press Detect.</div>
+            {% endif %}
+          </div>
+
+        </div>
+
+        <div class="right">
+          <div style="text-align:center;">
+            {% if output_image %}
+              <img id="outimg" src="{{ output_image }}?v={{ loop.index if loop else 0 }}" alt="Annotated" />
+            {% else %}
+              <img id="outimg" src="{{ url_for('static', filename='output.jpg') }}" alt="Annotated" />
+            {% endif %}
+          </div>
+          <div style="margin-top:12px; font-size:12px; color:#ddd;">
+            <strong>Notes:</strong> Suggestions are general. Follow label instructions and local extension advice before using chemicals.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
