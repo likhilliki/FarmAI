@@ -1,4 +1,4 @@
-# 🌿 Crop Disease Detection AI
+# 🌿 Farm AI
 
 [![Python](https://img.shields.io/badge/Python-3.10-blue)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://streamlit.io/)
@@ -53,19 +53,23 @@ PlantDoc-2/
 │   ├── train/
 │   └── val/
 └── data.yaml
+
 ## ⚙️ Installation
 
 ### Clone the repo
 ```bash
 git clone <your-repo-url>
 cd crop-disease-detection
+
 ### create env
 ```bash
 conda create -n crop python=3.10 -y
 conda activate crop
+
 ### Install dependencies
 ```bash
 pip install -r requirements.txt
+
 ### requirements.txt includes:
 ```text
 torch
@@ -93,5 +97,5 @@ Treatment Advice: Suggested treatment for detected diseases
 
 History Gallery: Browse all previous detections
 
-
-Powered by YOLOv8, Streamlit, and PlantDoc dataset
+---
+*Powered by YOLOv8, Streamlit, and PlantDoc dataset*
