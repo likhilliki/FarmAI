@@ -1,44 +1,50 @@
-🌿 Crop Disease Detection using YOLOv8 and Streamlit
-🏆 Overview
+# 🌿 Crop Disease Detection AI
 
-This project is a real-time plant disease detection app using YOLOv8.
-It allows farmers, gardeners, or students to detect diseases in leaves of 13 plant species (~30 disease classes) from the PlantDoc dataset.
+[![Python](https://img.shields.io/badge/Python-3.10-blue)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://streamlit.io/)
+[![YOLOv8](https://img.shields.io/badge/YOLOv8-Object%20Detection-orange)](https://ultralytics.com/)
 
-The app provides:
+---
 
-Image upload or webcam detection
+## 🏆 Overview
+This is a **real-time plant disease detection app** using **YOLOv8** and **Streamlit**.  
+It allows detection of diseases in leaves of **13 plant species (~30 disease classes)** using the **PlantDoc dataset**.
 
-Bounding box predictions of diseases
+**Features:**
+- Upload images or use webcam for detection  
+- Bounding boxes with disease class & confidence  
+- Suggested treatment for each disease  
+- Detection history gallery  
+- Public deployment ready  
 
-Disease class with confidence score
+---
 
-Suggested treatment for detected diseases
+## 🌱 Supported Plant Species & Disease Classes
 
-History gallery of detections
+**Plant Species (13):**  
+Apple, Cherry, Corn, Grape, Peach, Pepper, Potato, Rice, Soybean, Squash, Strawberry, Tomato, Raspberry  
 
-Public URL deployment with Streamlit
+**Sample Disease Classes (~30):**
+- Tomato: Early Blight, Late Blight, Leaf Mold, Mosaic Virus, Target Spot, Spider Mites, Healthy  
+- Potato: Early Blight, Late Blight, Healthy  
+- Apple: Scab, Rust, Healthy  
+- Pepper: Bacterial Spot, Healthy  
+- Cherry: Powdery Mildew, Healthy  
+- Grape: Black Rot, Esca, Leaf Blight, Healthy  
+- Peach: Bacterial Spot, Healthy  
+- Rice: Leaf Blast, Brown Spot, Healthy  
+- Soybean: Healthy, Mosaic Virus  
+- Squash: Powdery Mildew  
+- Strawberry: Leaf Scorch, Healthy  
+- Raspberry: Leaf Spot, Healthy  
 
-🌱 Features
-Feature	Description
-✅ Upload Image	Upload one or multiple leaf images
-✅ Webcam Detection	Detect disease in real-time using camera
-✅ Disease Prediction	YOLOv8 detects leaves and classifies diseases
-✅ Confidence Score	Shows confidence for each detected class
-✅ Treatment Advice	Shows recommended treatment for each disease
-✅ Detection History	Keeps a gallery of past detections
-✅ Public Deployment	Works on Streamlit Cloud or HuggingFace Spaces
-✅ Multi-species Support	13 plant species, ~30 disease classes
-✅ YOLOv8 Trained Model	Pretrained best.pt included
-📂 Dataset
+---
 
-Dataset used: PlantDoc 2
-
-Number of plant species: 13
-
-Number of disease classes: ~30
-
-Structure:
-
+## 📂 Dataset
+- **Dataset:** PlantDoc 2  
+- **YOLO Format:** Images + labels  
+- **Folder structure:**
+```text
 PlantDoc-2/
 ├── images/
 │   ├── train/
@@ -47,31 +53,21 @@ PlantDoc-2/
 │   ├── train/
 │   └── val/
 └── data.yaml
+## ⚙️ Installation
 
-
-data.yaml includes class names and train/val paths in YOLO format.
-
-⚙️ Installation
-
-Clone the repo:
-
+### Clone the repo
+```bash
 git clone <your-repo-url>
 cd crop-disease-detection
-
-
-Create Conda environment:
-
+### create env
+```bash
 conda create -n crop python=3.10 -y
 conda activate crop
-
-
-Install dependencies:
-
+### Install dependencies
+```bash
 pip install -r requirements.txt
-
-
-requirements.txt includes:
-
+### requirements.txt includes:
+```text
 torch
 ultralytics
 streamlit
@@ -80,86 +76,22 @@ numpy
 Pillow
 pyngrok
 
-🚀 Running the App
-
-Start the Streamlit app:
-
+### 🚀 Running the App
+Start Streamlit
+```bash
 streamlit run app.py
 
+###🧠 Usage
 
-Open the browser at:
+Upload Images: Detect one or multiple leaf images
 
-http://localhost:8501
+Webcam Detection: Real-time detection using your camera
 
+View Results: Bounding boxes, disease class, and confidence score
 
-For public URL (optional):
+Treatment Advice: Suggested treatment for detected diseases
 
-ngrok http 8501
+History Gallery: Browse all previous detections
 
-🧠 Usage
-
-Upload Images: Upload single or multiple leaf images.
-
-Webcam Detection: Use the webcam to capture live images.
-
-View Results: Detection bounding boxes, disease class, and confidence.
-
-Treatment Advice: Recommendations for each detected disease.
-
-History Gallery: View all past detections in the app.
-
-📦 Files
-
-app.py — Streamlit app
-
-best.pt — Trained YOLOv8 model weights
-
-data.yaml — Dataset configuration for YOLO
-
-requirements.txt — Python dependencies
-
-/images/ — Training and validation images
-
-/labels/ — YOLO-formatted labels
-
-💡 Example Classes
-
-Tomato: Early Blight, Late Blight, Leaf Mold, Mosaic Virus, Target Spot, Spider Mites, Healthy
-
-Potato: Early Blight, Late Blight, Healthy
-
-Apple: Scab, Rust, Healthy
-
-Pepper: Bacterial Spot, Healthy
-
-…and other plants like Grape, Strawberry, Rice, etc.
-
-📡 Deployment
-
-Streamlit Cloud: https://share.streamlit.io/
-
-HuggingFace Spaces: https://huggingface.co/spaces
-
-ngrok: temporary public URL for testing
-
-📝 Notes
-
-Always use best.pt for inference.
-
-Make sure data.yaml paths are correct.
-
-Confidence threshold can be adjusted in the app sidebar.
-
-GPU recommended for faster inference.
-
-👨‍💻 Authors
-
-Your Name : Likhil gowda K A
-
-Hackathon Team (TECH G)
 
 Powered by YOLOv8, Streamlit, and PlantDoc dataset
-
-⚡ License
-
-MIT License
